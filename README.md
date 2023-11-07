@@ -12,7 +12,7 @@
 ## Tech stack
 
 - React, Redux, Redux-Saga, Redux-ORM, Semantic UI React, react-beautiful-dnd
-- Sails.js, Knex.js
+- Node.js
 - PostgreSQL
 
 
