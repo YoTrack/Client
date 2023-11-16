@@ -6,7 +6,6 @@ import { Button, Grid, Icon, Modal } from 'semantic-ui-react';
 import { usePopup } from '../../lib/popup';
 import { Markdown } from '../../lib/custom-ui';
 
-import { startStopwatch, stopStopwatch } from '../../utils/stopwatch';
 import NameField from './NameField';
 import DescriptionEdit from './DescriptionEdit';
 import Tasks from './Tasks';
@@ -17,11 +16,9 @@ import Activities from './Activities';
 import User from '../User';
 import Label from '../Label';
 import DueDate from '../DueDate';
-import Stopwatch from '../Stopwatch';
 import BoardMembershipsStep from '../BoardMembershipsStep';
 import LabelsStep from '../LabelsStep';
 import DueDateEditStep from '../DueDateEditStep';
-import StopwatchEditStep from '../StopwatchEditStep';
 import CardMoveStep from '../CardMoveStep';
 import DeleteStep from '../DeleteStep';
 
@@ -32,7 +29,6 @@ const CardModal = React.memo(
     name,
     description,
     dueDate,
-    stopwatch,
     isSubscribed,
     isActivitiesFetching,
     isAllActivitiesFetched,
@@ -83,12 +79,6 @@ const CardModal = React.memo(
 
     const isGalleryOpened = useRef(false);
 
-    const handleToggleStopwatchClick = useCallback(() => {
-      onUpdate({
-        stopwatch: stopwatch.startedAt ? stopStopwatch(stopwatch) : startStopwatch(stopwatch),
-      });
-    }, [stopwatch, onUpdate]);
-
     const handleNameUpdate = useCallback(
       (newName) => {
         onUpdate({
@@ -111,15 +101,6 @@ const CardModal = React.memo(
       (newDueDate) => {
         onUpdate({
           dueDate: newDueDate,
-        });
-      },
-      [onUpdate],
-    );
-
-    const handleStopwatchUpdate = useCallback(
-      (newStopwatch) => {
-        onUpdate({
-          stopwatch: newStopwatch,
         });
       },
       [onUpdate],
@@ -160,7 +141,6 @@ const CardModal = React.memo(
     const BoardMembershipsPopup = usePopup(BoardMembershipsStep);
     const LabelsPopup = usePopup(LabelsStep);
     const DueDateEditPopup = usePopup(DueDateEditStep);
-    const StopwatchEditPopup = usePopup(StopwatchEditStep);
     const CardMovePopup = usePopup(CardMoveStep);
     const DeletePopup = usePopup(DeleteStep);
 
@@ -185,7 +165,7 @@ const CardModal = React.memo(
         </Grid.Row>
         <Grid.Row className={styles.modalPadding}>
           <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
-            {(users.length > 0 || labels.length > 0 || dueDate || stopwatch) && (
+            {(users.length > 0 || labels.length > 0 || dueDate) && (
               <div className={styles.moduleWrapper}>
                 {users.length > 0 && (
                   <div className={styles.attachments}>
@@ -292,40 +272,6 @@ const CardModal = React.memo(
                         <DueDate value={dueDate} />
                       )}
                     </span>
-                  </div>
-                )}
-                {stopwatch && (
-                  <div className={styles.attachments}>
-                    <div className={styles.text}>
-                      {t('common.stopwatch', {
-                        context: 'title',
-                      })}
-                    </div>
-                    <span className={styles.attachment}>
-                      {canEdit ? (
-                        <StopwatchEditPopup
-                          defaultValue={stopwatch}
-                          onUpdate={handleStopwatchUpdate}
-                        >
-                          <Stopwatch startedAt={stopwatch.startedAt} total={stopwatch.total} />
-                        </StopwatchEditPopup>
-                      ) : (
-                        <Stopwatch startedAt={stopwatch.startedAt} total={stopwatch.total} />
-                      )}
-                    </span>
-                    {canEdit && (
-                      <button
-                        onClick={handleToggleStopwatchClick}
-                        type="button"
-                        className={classNames(styles.attachment, styles.dueDate)}
-                      >
-                        <Icon
-                          name={stopwatch.startedAt ? 'pause' : 'play'}
-                          size="small"
-                          className={styles.addAttachment}
-                        />
-                      </button>
-                    )}
                   </div>
                 )}
               </div>
@@ -450,12 +396,6 @@ const CardModal = React.memo(
                     })}
                   </Button>
                 </DueDateEditPopup>
-                <StopwatchEditPopup defaultValue={stopwatch} onUpdate={handleStopwatchUpdate}>
-                  <Button fluid className={styles.actionButton}>
-                    <Icon name="clock outline" className={styles.actionIcon} />
-                    {t('common.stopwatch')}
-                  </Button>
-                </StopwatchEditPopup>
                 <AttachmentAddPopup onCreate={onAttachmentCreate}>
                   <Button fluid className={styles.actionButton}>
                     <Icon name="attach" className={styles.actionIcon} />
@@ -527,7 +467,6 @@ CardModal.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   dueDate: PropTypes.instanceOf(Date),
-  stopwatch: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   isSubscribed: PropTypes.bool.isRequired,
   isActivitiesFetching: PropTypes.bool.isRequired,
   isAllActivitiesFetched: PropTypes.bool.isRequired,
@@ -580,7 +519,6 @@ CardModal.propTypes = {
 CardModal.defaultProps = {
   description: undefined,
   dueDate: undefined,
-  stopwatch: undefined,
 };
 
 export default CardModal;

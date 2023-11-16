@@ -9,7 +9,7 @@ export default {
 
   translation: {
     common: {
-      aboutyoTrack: 'About yoTrack',
+      aboutTracker: 'About Tracker',
       account: 'Account',
       actions: 'Actions',
       addAttachment_title: 'Add Attachment',

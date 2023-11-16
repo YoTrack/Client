@@ -144,7 +144,7 @@ const Login = React.memo(
                   <Header
                     as="h1"
                     textAlign="center"
-                    content={t('common.logInToyoTrack')}
+                    content={t('common.logInToTracker')}
                     className={styles.formTitle}
                   />
                   <div>
@@ -219,7 +219,7 @@ const Login = React.memo(
           >
             <div className={styles.descriptionWrapperOverlay} />
             <div className={styles.descriptionWrapper}>
-              <Header inverted as="h1" content="yoTrack" className={styles.descriptionTitle} />
+              <Header inverted as="h1" content="Tracker" className={styles.descriptionTitle} />
               <Header
                 inverted
                 as="h2"

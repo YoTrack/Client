@@ -4,7 +4,7 @@ export default {
       emailOrUsername: 'E-mail or username',
       invalidEmailOrUsername: 'Invalid e-mail or username',
       invalidPassword: 'Invalid password',
-      logInToyoTrack: 'Log in to yoTrack',
+      logInToTracker: 'Log in to Tracker',
       noInternetConnection: 'No internet connection',
       pageNotFound_title: 'Page Not Found',
       password: 'Password',

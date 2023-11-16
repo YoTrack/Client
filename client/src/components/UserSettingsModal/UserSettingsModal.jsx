@@ -75,7 +75,7 @@ const UserSettingsModal = React.memo(
         ),
       },
       {
-        menuItem: t('common.aboutyoTrack', {
+        menuItem: t('common.aboutTracker', {
           context: 'title',
         }),
         render: () => <AboutPane />,

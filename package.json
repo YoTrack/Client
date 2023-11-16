@@ -10,10 +10,8 @@
     "lint": "npm run server:lint && npm run client:lint",
     "server:console": "npm run console --prefix server",
     "server:db:init": "npm run db:init --prefix server",
-    "server:db:seed": "npm run db:seed --prefix server",
     "server:lint": "npm run lint --prefix server",
     "server:start": "npm start --prefix server",
-    "server:start:prod": "npm run start:prod --prefix server",
     "start": "concurrently -n server,client \"npm run server:start\" \"npm run client:start\""
   },
   "lint-staged": {

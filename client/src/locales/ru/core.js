@@ -13,7 +13,7 @@ export default {
 
   translation: {
     common: {
-      aboutyoTrack: 'О проекте yoTrack',
+      aboutTracker: 'О проекте Tracker',
       account: 'Учетная запись',
       actions: 'Действия',
       addAttachment: 'Добавление вложения',
