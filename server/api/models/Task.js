@@ -1,28 +1,28 @@
 /**
- * BoardMembership.js
+ * Task.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const Roles = {
-  EDITOR: 'editor',
-  VIEWER: 'viewer',
-};
-
 module.exports = {
-  Roles,
-
   attributes: {
-    role: {
-      type: 'string',
-      isIn: Object.values(Roles),
+    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
+
+    position: {
+      type: 'number',
       required: true,
     },
-    canComment: {
+    name: {
+      type: 'string',
+      required: true,
+    },
+    isCompleted: {
       type: 'boolean',
-      allowNull: true,
-      columnName: 'can_comment',
+      defaultsTo: false,
+      columnName: 'is_completed',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -33,17 +33,10 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    boardId: {
-      model: 'Board',
+    cardId: {
+      model: 'Card',
       required: true,
-      columnName: 'board_id',
-    },
-    userId: {
-      model: 'User',
-      required: true,
-      columnName: 'user_id',
+      columnName: 'card_id',
     },
   },
-
-  tableName: 'board_membership',
 };

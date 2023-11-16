@@ -1,28 +1,23 @@
 /**
- * BoardMembership.js
+ * List.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const Roles = {
-  EDITOR: 'editor',
-  VIEWER: 'viewer',
-};
-
 module.exports = {
-  Roles,
-
   attributes: {
-    role: {
-      type: 'string',
-      isIn: Object.values(Roles),
+    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
+
+    position: {
+      type: 'number',
       required: true,
     },
-    canComment: {
-      type: 'boolean',
-      allowNull: true,
-      columnName: 'can_comment',
+    name: {
+      type: 'string',
+      required: true,
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -38,12 +33,9 @@ module.exports = {
       required: true,
       columnName: 'board_id',
     },
-    userId: {
-      model: 'User',
-      required: true,
-      columnName: 'user_id',
+    cards: {
+      collection: 'Card',
+      via: 'listId',
     },
   },
-
-  tableName: 'board_membership',
 };

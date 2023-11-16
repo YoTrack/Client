@@ -1,29 +1,25 @@
 /**
- * BoardMembership.js
+ * ProjectManager.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const Roles = {
-  EDITOR: 'editor',
-  VIEWER: 'viewer',
-};
-
 module.exports = {
-  Roles,
-
   attributes: {
-    role: {
+    issuer: {
       type: 'string',
-      isIn: Object.values(Roles),
-      required: true,
-    },
-    canComment: {
-      type: 'boolean',
+      isNotEmptyString: true,
       allowNull: true,
-      columnName: 'can_comment',
     },
+    sub: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+    },
+    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -33,11 +29,6 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    boardId: {
-      model: 'Board',
-      required: true,
-      columnName: 'board_id',
-    },
     userId: {
       model: 'User',
       required: true,
@@ -45,5 +36,5 @@ module.exports = {
     },
   },
 
-  tableName: 'board_membership',
+  tableName: 'identity_provider_user',
 };
