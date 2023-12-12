@@ -55,6 +55,10 @@ module.exports = {
   async fn(inputs) {
     const { isSubscribed, ...values } = inputs.values;
 
+    if (_.isNull(values.priority) || _.isUndefined(values.priority)) {
+      values.priority = 0;
+    }
+
     if (values.board || values.list || !_.isUndefined(values.position)) {
       if (!inputs.board) {
         throw 'boardMustBePresent';

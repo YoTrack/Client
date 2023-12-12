@@ -13,6 +13,7 @@ const Errors = {
 };
 
 const dueDateValidator = (value) => moment(value, moment.ISO_8601, true).isValid();
+const priorityValidator = (value) => value == null || value >= 0;
 
 const stopwatchValidator = (value) => {
   if (!_.isPlainObject(value) || _.size(value) !== 2) {
@@ -61,6 +62,12 @@ module.exports = {
       type: 'json',
       custom: stopwatchValidator,
     },
+    priority: {
+      type: 'number',
+      custom: priorityValidator,
+      required: false,
+      default: 0,
+    },
   },
 
   exits: {
@@ -95,7 +102,14 @@ module.exports = {
       throw Errors.NOT_ENOUGH_RIGHTS;
     }
 
-    const values = _.pick(inputs, ['position', 'name', 'description', 'dueDate', 'stopwatch']);
+    const values = _.pick(inputs, [
+      'position',
+      'name',
+      'description',
+      'dueDate',
+      'stopwatch',
+      'priority',
+    ]);
 
     const card = await sails.helpers.cards.createOne
       .with({

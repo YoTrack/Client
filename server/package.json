@@ -4,6 +4,7 @@
   "main": "app.js",
   "scripts": {
     "db:init": "node db/init.js",
+    "db:migrate": "knex migrate:latest --cwd db",
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "start": "nodemon",
     "start:prod": "node app.js --prod"

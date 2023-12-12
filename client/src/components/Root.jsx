@@ -26,6 +26,7 @@ function Root({ store, history }) {
           <Route path={Paths.PROJECTS} element={<CoreContainer />} />
           <Route path={Paths.BOARDS} element={<CoreContainer />} />
           <Route path={Paths.CARDS} element={<CoreContainer />} />
+          <Route path={Paths.WEEK_SCHEDULE} element={<CoreContainer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ReduxRouter>
