@@ -46,7 +46,7 @@ const stopwatchValidator = (value) => {
 
 const priorityValidator = (value) => value == null || value >= 0;
 
-const durationValidator = (value) => value == null || (value >= 0.25 && value < 200);
+const durationValidator = (value) => value == null || (value >= 0.25 && value < 25);
 
 module.exports = {
   inputs: {

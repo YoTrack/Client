@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -17,6 +18,8 @@ import DueDate from '../DueDate';
 import Stopwatch from '../Stopwatch';
 
 import styles from './Card.module.scss';
+import Priority from "../Priority";
+import Duration from "../Duration";
 
 const Card = React.memo(
   ({
@@ -24,6 +27,9 @@ const Card = React.memo(
     index,
     name,
     dueDate,
+    assignee,
+    duration,
+    priority,
     stopwatch,
     coverUrl,
     boardId,
@@ -104,7 +110,7 @@ const Card = React.memo(
           )}
           <div className={styles.name}>{name}</div>
           {tasks.length > 0 && <Tasks items={tasks} />}
-          {(dueDate || stopwatch || notificationsTotal > 0) && (
+          {(dueDate || priority || stopwatch || notificationsTotal > 0 ) && (
             <span className={styles.attachments}>
               {notificationsTotal > 0 && (
                 <span
@@ -122,6 +128,12 @@ const Card = React.memo(
                   <DueDate value={dueDate} size="tiny" />
                 </span>
               )}
+              <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+                <Priority value={priority} size="tiny"/>
+              </span>
+              <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+                <Duration value={duration} size="tiny"/>
+              </span>
               {stopwatch && (
                 <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                   <Stopwatch
@@ -135,7 +147,7 @@ const Card = React.memo(
               )}
             </span>
           )}
-          {users.length > 0 && (
+         {users.length > 0 && (
             <span className={classNames(styles.attachments, styles.attachmentsRight)}>
               {users.map((user) => (
                 <span
@@ -219,6 +231,9 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   dueDate: PropTypes.instanceOf(Date),
+  assignee: PropTypes.object,
+  duration: PropTypes.number,
+  priority: PropTypes.number,
   stopwatch: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   coverUrl: PropTypes.string,
   boardId: PropTypes.string.isRequired,
@@ -252,6 +267,8 @@ Card.propTypes = {
 
 Card.defaultProps = {
   dueDate: undefined,
+  priority: 0,
+  duration: undefined,
   stopwatch: undefined,
   coverUrl: undefined,
 };
