@@ -106,7 +106,6 @@ export default {
       listActions_title: 'List Actions',
       managers: 'Managers',
       members: 'Members',
-      assignee: 'Assignee',
       priority: 'Priority',
       duration: 'Duration',
       minutes: 'Minutes',

@@ -27,7 +27,6 @@ const Card = React.memo(
     index,
     name,
     dueDate,
-    assignee,
     duration,
     priority,
     stopwatch,
@@ -110,7 +109,7 @@ const Card = React.memo(
           )}
           <div className={styles.name}>{name}</div>
           {tasks.length > 0 && <Tasks items={tasks} />}
-          {(dueDate || priority || stopwatch || notificationsTotal > 0 ) && (
+          {(dueDate || duration || priority || stopwatch || notificationsTotal > 0 ) && (
             <span className={styles.attachments}>
               {notificationsTotal > 0 && (
                 <span
@@ -128,12 +127,16 @@ const Card = React.memo(
                   <DueDate value={dueDate} size="tiny" />
                 </span>
               )}
-              <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+              {priority > 0 && (
+                <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                 <Priority value={priority} size="tiny"/>
               </span>
-              <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+              )}
+              {duration > 0 && (
+                <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                 <Duration value={duration} size="tiny"/>
               </span>
+              )}
               {stopwatch && (
                 <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                   <Stopwatch
@@ -231,7 +234,6 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   dueDate: PropTypes.instanceOf(Date),
-  assignee: PropTypes.object,
   duration: PropTypes.number,
   priority: PropTypes.number,
   stopwatch: PropTypes.object, // eslint-disable-line react/forbid-prop-types

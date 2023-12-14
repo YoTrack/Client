@@ -113,7 +113,6 @@ export default {
       listActions: 'Действия со списком',
       managers: 'Менеджеры',
       members: 'Участники',
-      assignee: 'Исполнитель',
       priority: 'Приоритет',
       duration: 'Длительность',
       minutes: 'Минуты',

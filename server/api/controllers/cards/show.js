@@ -1,3 +1,4 @@
+/* eslint-disable */
 const Errors = {
   CARD_NOT_FOUND: {
     cardNotFound: 'Card not found',

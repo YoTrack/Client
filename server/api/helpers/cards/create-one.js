@@ -48,10 +48,6 @@ module.exports = {
       cards,
     );
 
-    if (_.isNull(values.priority) || _.isUndefined(values.priority)) {
-      values.priority = 0;
-    }
-
     repositions.forEach(async ({ id, position: nextPosition }) => {
       await Card.update({
         id,

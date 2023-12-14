@@ -92,11 +92,6 @@ module.exports = {
     isSubscribed: {
       type: "boolean"
     },
-    assigneeId: {
-      type: "string",
-      regex: /^[0-9]+$/,
-      allowNull: true
-    },
     duration: {
       type: "number",
       custom: durationValidator,
@@ -194,7 +189,6 @@ module.exports = {
       "dueDate",
       "stopwatch",
       "isSubscribed",
-      "assigneeId",
       "duration",
       "priority"
     ]);

@@ -17,9 +17,9 @@ const TITLES = {
   LIGHT: 'Низкий',
 };
 
-const Priority = React.memo(({ value, size, isDisabled, onClick }) => {
+const Duration = React.memo(({ value, size, isDisabled, onClick }) => {
   let hours;
-  if (value === 0.0) {
+  if (value === 0.0 || value === null || value === undefined) {
     hours = '';
   } else {
     const hourMod = (value * 10) % 10;
@@ -50,18 +50,18 @@ const Priority = React.memo(({ value, size, isDisabled, onClick }) => {
   );
 });
 
-Priority.propTypes = {
+Duration.propTypes = {
   value: PropTypes.number,
   size: PropTypes.oneOf(Object.values(SIZES)),
   isDisabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
-Priority.defaultProps = {
+Duration.defaultProps = {
   value: 0,
   size: SIZES.MEDIUM,
   isDisabled: false,
   onClick: undefined,
 };
 
-export default Priority;
+export default Duration;

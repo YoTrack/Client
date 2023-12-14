@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -20,11 +21,17 @@ const makeMapStateToProps = () => {
     const allLabels = selectors.selectLabelsForCurrentBoard(state);
     const currentUserMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
 
-    // eslint-disable-next-line prefer-const
-    let { name, dueDate, stopwatch, coverUrl, boardId, listId, isPersisted, priority, duration } =
-      selectCardById(state, id);
-    priority = 2; // переделать позже модель на фронте и чекнуть бэк
-    duration = 3;
+    let {
+      name,
+      dueDate,
+      stopwatch,
+      coverUrl,
+      boardId,
+      listId,
+      isPersisted,
+      duration,
+      priority,
+    } = selectCardById(state, id);
     const users = selectUsersByCardId(state, id);
     const labels = selectLabelsByCardId(state, id);
     const tasks = selectTasksByCardId(state, id);
@@ -38,8 +45,8 @@ const makeMapStateToProps = () => {
       index,
       name,
       dueDate,
-      priority,
       duration,
+      priority,
       stopwatch,
       coverUrl,
       boardId,

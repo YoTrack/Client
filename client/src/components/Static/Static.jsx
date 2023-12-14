@@ -6,6 +6,7 @@ import { Icon, Loader } from 'semantic-ui-react';
 
 import ProjectsContainer from '../../containers/ProjectsContainer';
 import BoardContainer from '../../containers/BoardContainer';
+// import schedule-container
 
 import styles from './Static.module.scss';
 
