@@ -10,7 +10,7 @@ const makeMapStateToProps = () => {
   return (state, { date, currentUserId, index }) => {
     const cards = selectCardsByUserId(state, currentUserId);
     console.log(cards)
-    const cardsForDate = cards.filter((card) => card.date!==null && card.date.toLocaleDateString() === date )
+    const cardsForDate = cards.filter((card) => card.dueDate!==null && card.dueDate.toLocaleDateString() === date )
     const name = date
     return {
       index,

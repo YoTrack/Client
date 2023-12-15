@@ -6,21 +6,7 @@ import selectors from '../selectors';
 import entryActions from '../entry-actions';
 import { BoardMembershipRoles } from '../constants/Enums';
 import Card from '../components/Card';
-
-function getCurrentWeekDates() {
-  const today = new Date();
-  const currentDayOfWeek = today.getDay();
-  const startingDate = new Date(today.getTime() - (currentDayOfWeek - 1) * 24 * 60 * 60 * 1000); // Понедельник текущей недели
-
-  const weekDates = [];
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(startingDate.getTime() + i * 24 * 60 * 60 * 1000);
-    weekDates.push(date.toLocaleDateString());
-  }
-
-  return weekDates;
-}
+import { selectCardsByUserId } from "../selectors/userSchedule";
 
 const makeMapStateToProps = () => {
   const selectCardById = selectors.makeSelectCardById();

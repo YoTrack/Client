@@ -17,6 +17,7 @@ function Static({ projectId, cardId, board }) {
     return (
       <div className={styles.wrapper}>
         <ProjectsContainer />
+        <UserScheduleContainer />
       </div>
     );
   }
@@ -93,7 +94,6 @@ function Static({ projectId, cardId, board }) {
     <div>
       <div className={classNames(styles.wrapper, styles.wrapperFlex, styles.wrapperBoard)}>
         <BoardContainer />
-        <UserScheduleContainer />
       </div>
     </div>
   );
