@@ -1,25 +1,88 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { closePopup } from '../../lib/popup';
-
-import DroppableTypes from '../../constants/DroppableTypes';
-import ListContainer from '../../containers/ListContainer';
-import CardModalContainer from '../../containers/CardModalContainer';
 
 import styles from './UserSchedule.module.scss';
+import ScheduleListContainer from '../../containers/ScheduleListContainer';
 
-// const parseDndId = (dndId) => dndId.split(':')[1];
+const UserSchedule = React.memo(({ currentUserId, datesOfWeek, canEdit }) => {
+  const wrapper = useRef(null);
+  const prevPosition = useRef(null);
 
-const UserSchedule = React.memo(({ taskLists, onMove }) => {
+  const handleMouseDown = useCallback(
+    (event) => {
+      // If button is defined and not equal to 0 (left click)
+      if (event.button) {
+        return;
+      }
 
+      if (event.target !== wrapper.current && !event.target.dataset.dragScroller) {
+        return;
+      }
+
+      prevPosition.current = event.clientX;
+    },
+    [wrapper],
+  );
+
+  const handleWindowMouseMove = useCallback(
+    (event) => {
+      if (!prevPosition.current) {
+        return;
+      }
+
+      event.preventDefault();
+
+      window.scrollBy({
+        left: prevPosition.current - event.clientX,
+      });
+
+      prevPosition.current = event.clientX;
+    },
+    [prevPosition],
+  );
+
+  const handleWindowMouseUp = useCallback(() => {
+    prevPosition.current = null;
+  }, [prevPosition]);
+
+  useEffect(() => {
+    document.body.style.overflowX = 'auto';
+
+    return () => {
+      document.body.style.overflowX = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('mouseup', handleWindowMouseUp);
+    window.addEventListener('mousemove', handleWindowMouseMove);
+
+    return () => {
+      window.removeEventListener('mouseup', handleWindowMouseUp);
+      window.removeEventListener('mousemove', handleWindowMouseMove);
+    };
+  }, [handleWindowMouseUp, handleWindowMouseMove]);
+
+  return (
+    <>
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div className={styles.wrapper} onMouseDown={handleMouseDown}>
+        <div>
+          <div className={styles.lists}>
+            {datesOfWeek.map((date, index) => (
+              <ScheduleListContainer date={date} userId={currentUserId} index={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 });
 
 UserSchedule.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  taskLists: PropTypes.array.isRequired,
-  onMove: PropTypes.func.isRequired,
+  currentUserId: PropTypes.string.isRequired,
+  datesOfWeek: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  canEdit: PropTypes.bool.isRequired,
 };
 
 export default UserSchedule;

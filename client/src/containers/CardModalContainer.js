@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import omit from 'lodash/omit';

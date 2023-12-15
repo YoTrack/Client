@@ -73,7 +73,7 @@ const List = React.memo(
           <div {...droppableProps} ref={innerRef}>
             <div className={styles.cards}>
               {cardIds.map((cardId, cardIndex) => (
-                <CardContainer key={cardId} id={cardId} index={cardIndex} />
+                <CardContainer key={cardId} id={cardId} index={cardIndex} canEdit={canEdit} />
               ))}
               {placeholder}
               {canEdit && (

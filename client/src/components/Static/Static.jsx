@@ -6,9 +6,9 @@ import { Icon, Loader } from 'semantic-ui-react';
 
 import ProjectsContainer from '../../containers/ProjectsContainer';
 import BoardContainer from '../../containers/BoardContainer';
-// import schedule-container
 
 import styles from './Static.module.scss';
+import UserScheduleContainer from '../../containers/UserScheduleContainer';
 
 function Static({ projectId, cardId, board }) {
   const [t] = useTranslation();
@@ -90,8 +90,11 @@ function Static({ projectId, cardId, board }) {
   }
 
   return (
-    <div className={classNames(styles.wrapper, styles.wrapperFlex, styles.wrapperBoard)}>
-      <BoardContainer />
+    <div>
+      <div className={classNames(styles.wrapper, styles.wrapperFlex, styles.wrapperBoard)}>
+        <BoardContainer />
+        <UserScheduleContainer />
+      </div>
     </div>
   );
 }

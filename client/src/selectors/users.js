@@ -54,23 +54,6 @@ export const selectCurrentUser = createSelector(
   },
 );
 
-export const makeSelectCardsByUserId = () =>
-  createSelector(
-    orm,
-    (_, id) => id,
-    ({ User }, id) => {
-      const userModel = User.withId(id);
-
-      if (!userModel) {
-        return userModel;
-      }
-
-      return userModel.cards.toRefArray();
-    },
-  );
-
-export const selectCardsByUserId = makeSelectCardsByUserId();
-
 export const selectProjectsForCurrentUser = createSelector(
   orm,
   (state) => selectCurrentUserId(state),
@@ -159,8 +142,6 @@ export const selectNotificationsForCurrentUser = createSelector(
 export default {
   selectCurrentUserId,
   makeSelectUserById,
-  makeSelectCardsByUserId,
-  selectCardsByUserId,
   selectUserById,
   selectUsers,
   selectUsersExceptCurrent,

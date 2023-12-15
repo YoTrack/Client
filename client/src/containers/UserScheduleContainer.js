@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,21 +14,22 @@ function getCurrentWeekDates() {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 7; i++) {
     const date = new Date(startingDate.getTime() + i * 24 * 60 * 60 * 1000);
-    weekDates.push(date);
+    weekDates.push(date.toLocaleDateString());
   }
 
   return weekDates;
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
   // eslint-disable-next-line no-use-before-define
   const datesOfWeek = getCurrentWeekDates();
-  const currentUserId = selectors.selectCurrentUserId;
-  const cards = selectors.selectCardsByUserId(state, currentUserId);
+  const currentUserId = selectors.selectCurrentUser(state).id;
+ // const listIds = ['1108973310143628301','1109563272689878058'];
+ // console.log(cards)
   const canEdit = true;
   return {
+    currentUserId,
     datesOfWeek,
-    cards,
     canEdit,
   };
 };

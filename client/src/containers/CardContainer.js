@@ -7,6 +7,21 @@ import entryActions from '../entry-actions';
 import { BoardMembershipRoles } from '../constants/Enums';
 import Card from '../components/Card';
 
+function getCurrentWeekDates() {
+  const today = new Date();
+  const currentDayOfWeek = today.getDay();
+  const startingDate = new Date(today.getTime() - (currentDayOfWeek - 1) * 24 * 60 * 60 * 1000); // Понедельник текущей недели
+
+  const weekDates = [];
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(startingDate.getTime() + i * 24 * 60 * 60 * 1000);
+    weekDates.push(date.toLocaleDateString());
+  }
+
+  return weekDates;
+}
+
 const makeMapStateToProps = () => {
   const selectCardById = selectors.makeSelectCardById();
   const selectUsersByCardId = selectors.makeSelectUsersByCardId();
@@ -14,13 +29,12 @@ const makeMapStateToProps = () => {
   const selectTasksByCardId = selectors.makeSelectTasksByCardId();
   const selectNotificationsTotalByCardId = selectors.makeSelectNotificationsTotalByCardId();
 
-  return (state, { id, index }) => {
+  return (state, { id, index, canEdit }) => {
     const { projectId } = selectors.selectPath(state);
     const allProjectsToLists = selectors.selectProjectsToListsForCurrentUser(state);
     const allBoardMemberships = selectors.selectMembershipsForCurrentBoard(state);
     const allLabels = selectors.selectLabelsForCurrentBoard(state);
     const currentUserMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-
     let {
       name,
       dueDate,
@@ -36,7 +50,6 @@ const makeMapStateToProps = () => {
     const labels = selectLabelsByCardId(state, id);
     const tasks = selectTasksByCardId(state, id);
     const notificationsTotal = selectNotificationsTotalByCardId(state, id);
-
     const isCurrentUserEditor =
       !!currentUserMembership && currentUserMembership.role === BoardMembershipRoles.EDITOR;
 
@@ -60,7 +73,7 @@ const makeMapStateToProps = () => {
       allProjectsToLists,
       allBoardMemberships,
       allLabels,
-      canEdit: isCurrentUserEditor,
+      canEdit: canEdit,
     };
   };
 };

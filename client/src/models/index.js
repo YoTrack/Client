@@ -13,13 +13,13 @@ import Notification from './Notification';
 
 export {
   User,
+  Card,
   Project,
   ProjectManager,
   Board,
   BoardMembership,
   Label,
   List,
-  Card,
   Task,
   Attachment,
   Activity,
