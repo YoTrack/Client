@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -18,64 +18,71 @@ import Label from '../Label';
 import DueDate from '../DueDate';
 import BoardMembershipsStep from '../BoardMembershipsStep';
 import LabelsStep from '../LabelsStep';
+import DurStep from '../DurStep';
 import DueDateEditStep from '../DueDateEditStep';
 import CardMoveStep from '../CardMoveStep';
 import DeleteStep from '../DeleteStep';
 
 import styles from './CardModal.module.scss';
+import PriorityStep from '../PriorityStep';
+import Priority from '../Priority';
+import Duration from '../Duration';
 
 const CardModal = React.memo(
   ({
-    name,
-    description,
-    dueDate,
-    isSubscribed,
-    isActivitiesFetching,
-    isAllActivitiesFetched,
-    isActivitiesDetailsVisible,
-    isActivitiesDetailsFetching,
-    listId,
-    boardId,
-    projectId,
-    users,
-    labels,
-    tasks,
-    attachments,
-    activities,
-    allProjectsToLists,
-    allBoardMemberships,
-    allLabels,
-    canEdit,
-    canEditCommentActivities,
-    canEditAllCommentActivities,
-    onUpdate,
-    onMove,
-    onTransfer,
-    onDelete,
-    onUserAdd,
-    onUserRemove,
-    onBoardFetch,
-    onLabelAdd,
-    onLabelRemove,
-    onLabelCreate,
-    onLabelUpdate,
-    onLabelMove,
-    onLabelDelete,
-    onTaskCreate,
-    onTaskUpdate,
-    onTaskMove,
-    onTaskDelete,
-    onAttachmentCreate,
-    onAttachmentUpdate,
-    onAttachmentDelete,
-    onActivitiesFetch,
-    onActivitiesDetailsToggle,
-    onCommentActivityCreate,
-    onCommentActivityUpdate,
-    onCommentActivityDelete,
-    onClose,
-  }) => {
+     name,
+     description,
+     dueDate,
+     duration,
+     priority,
+     isSubscribed,
+     isActivitiesFetching,
+     isAllActivitiesFetched,
+     isActivitiesDetailsVisible,
+     isActivitiesDetailsFetching,
+     listId,
+     boardId,
+     projectId,
+     users,
+     labels,
+     tasks,
+     attachments,
+     activities,
+     allProjectsToLists,
+     allBoardMemberships,
+     allLabels,
+     canEdit,
+     canEditCommentActivities,
+     canEditAllCommentActivities,
+     onUpdate,
+     onMove,
+     onTransfer,
+     onDelete,
+     onUserAdd,
+     onUserRemove,
+     onBoardFetch,
+     onLabelAdd,
+     onLabelRemove,
+     onLabelCreate,
+     onLabelUpdate,
+     onLabelMove,
+     onLabelDelete,
+     onTaskCreate,
+     onTaskUpdate,
+     onTaskMove,
+     onTaskDelete,
+     onAttachmentCreate,
+     onAttachmentUpdate,
+     onAttachmentDelete,
+     onActivitiesFetch,
+     onActivitiesDetailsToggle,
+     onCommentActivityCreate,
+     onCommentActivityUpdate,
+     onCommentActivityDelete,
+     onClose,
+   }) => {
     const [t] = useTranslation();
+
 
     const isGalleryOpened = useRef(false);
 
@@ -101,6 +108,24 @@ const CardModal = React.memo(
       (newDueDate) => {
         onUpdate({
           dueDate: newDueDate,
+        });
+      },
+      [onUpdate],
+    );
+
+    const handleDurUpdate = useCallback(
+      (newDur) => {
+        onUpdate({
+          duration: newDur,
+        });
+      },
+      [onUpdate],
+    );
+
+    const handlePriorityUpdate = useCallback(
+      (newPriority) => {
+        onUpdate({
+          priority: newPriority,
         });
       },
       [onUpdate],
@@ -140,6 +165,8 @@ const CardModal = React.memo(
     const AttachmentAddPopup = usePopup(AttachmentAddStep);
     const BoardMembershipsPopup = usePopup(BoardMembershipsStep);
     const LabelsPopup = usePopup(LabelsStep);
+    const DurPopup = usePopup(DurStep);
+    const PriorityPopup = usePopup(PriorityStep);
     const DueDateEditPopup = usePopup(DueDateEditStep);
     const CardMovePopup = usePopup(CardMoveStep);
     const DeletePopup = usePopup(DeleteStep);
@@ -152,7 +179,7 @@ const CardModal = React.memo(
         <Grid.Row className={styles.headerPadding}>
           <Grid.Column width={16} className={styles.headerPadding}>
             <div className={styles.headerWrapper}>
-              <Icon name="list alternate outline" className={styles.moduleIcon} />
+              <Icon name='list alternate outline' className={styles.moduleIcon} />
               <div className={styles.headerTitleWrapper}>
                 {canEdit ? (
                   <NameField defaultValue={name} onUpdate={handleNameUpdate} />
@@ -165,7 +192,7 @@ const CardModal = React.memo(
         </Grid.Row>
         <Grid.Row className={styles.modalPadding}>
           <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
-            {(users.length > 0 || labels.length > 0 || dueDate) && (
+            {(users.length > 0 || labels.length > 0 || dueDate || duration > 0 || priority) && (
               <div className={styles.moduleWrapper}>
                 {users.length > 0 && (
                   <div className={styles.attachments}>
@@ -198,15 +225,42 @@ const CardModal = React.memo(
                         onUserDeselect={onUserRemove}
                       >
                         <button
-                          type="button"
+                          type='button'
                           className={classNames(styles.attachment, styles.dueDate)}
                         >
-                          <Icon name="add" size="small" className={styles.addAttachment} />
+                          <Icon name='add' size='small' className={styles.addAttachment} />
                         </button>
                       </BoardMembershipsPopup>
                     )}
                   </div>
                 )}
+
+                {duration > 0 && (
+                  <div className={styles.attachments}>
+                    <div className={styles.text}>
+                      {t('common.dur', {
+                        context: 'title',
+                      })}
+                    </div>
+                    <span className={styles.attachment}>
+                      <Duration value={duration} />
+                    </span>
+                  </div>
+                )}
+
+                {priority && (
+                  <div className={styles.attachments}>
+                    <div className={styles.text}>
+                      {t('common.priority', {
+                        context: 'title',
+                      })}
+                    </div>
+                    <span className={styles.attachment}>
+                      <Priority value={priority} size='medium' />
+                    </span>
+                  </div>
+                )}
+
                 {labels.length > 0 && (
                   <div className={styles.attachments}>
                     <div className={styles.text}>
@@ -247,10 +301,10 @@ const CardModal = React.memo(
                         onDelete={onLabelDelete}
                       >
                         <button
-                          type="button"
+                          type='button'
                           className={classNames(styles.attachment, styles.dueDate)}
                         >
-                          <Icon name="add" size="small" className={styles.addAttachment} />
+                          <Icon name='add' size='small' className={styles.addAttachment} />
                         </button>
                       </LabelsPopup>
                     )}
@@ -279,21 +333,21 @@ const CardModal = React.memo(
             {(description || canEdit) && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
-                  <Icon name="align justify" className={styles.moduleIcon} />
+                  <Icon name='align justify' className={styles.moduleIcon} />
                   <div className={styles.moduleHeader}>{t('common.description')}</div>
                   {canEdit ? (
                     <DescriptionEdit defaultValue={description} onUpdate={handleDescriptionUpdate}>
                       {description ? (
                         <button
-                          type="button"
+                          type='button'
                           className={classNames(styles.descriptionText, styles.cursorPointer)}
                         >
-                          <Markdown linkStopPropagation linkTarget="_blank">
+                          <Markdown linkStopPropagation linkTarget='_blank'>
                             {description}
                           </Markdown>
                         </button>
                       ) : (
-                        <button type="button" className={styles.descriptionButton}>
+                        <button type='button' className={styles.descriptionButton}>
                           <span className={styles.descriptionButtonText}>
                             {t('action.addMoreDetailedDescription')}
                           </span>
@@ -302,7 +356,7 @@ const CardModal = React.memo(
                     </DescriptionEdit>
                   ) : (
                     <div className={styles.descriptionText}>
-                      <Markdown linkStopPropagation linkTarget="_blank">
+                      <Markdown linkStopPropagation linkTarget='_blank'>
                         {description}
                       </Markdown>
                     </div>
@@ -313,7 +367,7 @@ const CardModal = React.memo(
             {(tasks.length > 0 || canEdit) && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
-                  <Icon name="check square outline" className={styles.moduleIcon} />
+                  <Icon name='check square outline' className={styles.moduleIcon} />
                   <div className={styles.moduleHeader}>{t('common.tasks')}</div>
                   <Tasks
                     items={tasks}
@@ -329,7 +383,7 @@ const CardModal = React.memo(
             {attachments.length > 0 && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
-                  <Icon name="attach" className={styles.moduleIcon} />
+                  <Icon name='attach' className={styles.moduleIcon} />
                   <div className={styles.moduleHeader}>{t('common.attachments')}</div>
                   <Attachments
                     items={attachments}
@@ -369,7 +423,7 @@ const CardModal = React.memo(
                   onUserDeselect={onUserRemove}
                 >
                   <Button fluid className={styles.actionButton}>
-                    <Icon name="user outline" className={styles.actionIcon} />
+                    <Icon name='user outline' className={styles.actionIcon} />
                     {t('common.members')}
                   </Button>
                 </BoardMembershipsPopup>
@@ -384,21 +438,37 @@ const CardModal = React.memo(
                   onDelete={onLabelDelete}
                 >
                   <Button fluid className={styles.actionButton}>
-                    <Icon name="bookmark outline" className={styles.actionIcon} />
+                    <Icon name='bookmark outline' className={styles.actionIcon} />
                     {t('common.labels')}
                   </Button>
                 </LabelsPopup>
                 <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
                   <Button fluid className={styles.actionButton}>
-                    <Icon name="calendar check outline" className={styles.actionIcon} />
+                    <Icon name='calendar check outline' className={styles.actionIcon} />
                     {t('common.dueDate', {
                       context: 'title',
                     })}
                   </Button>
                 </DueDateEditPopup>
+                <DurPopup defaultValue={duration} onUpdate={handleDurUpdate}>
+                  <Button fluid className={styles.actionButton}>
+                    <Icon name='clock outline' className={styles.actionIcon} />
+                    {t('common.dur', {
+                      context: 'title',
+                    })}
+                  </Button>
+                </DurPopup>
+                <PriorityPopup defaultValue={priority} onUpdate={handlePriorityUpdate}>
+                  <Button fluid className={styles.actionButton}>
+                    <Icon name='bolt' className={styles.actionIcon} />
+                    {t('common.priority', {
+                      context: 'title',
+                    })}
+                  </Button>
+                </PriorityPopup>
                 <AttachmentAddPopup onCreate={onAttachmentCreate}>
                   <Button fluid className={styles.actionButton}>
-                    <Icon name="attach" className={styles.actionIcon} />
+                    <Icon name='attach' className={styles.actionIcon} />
                     {t('common.attachment')}
                   </Button>
                 </AttachmentAddPopup>
@@ -410,7 +480,7 @@ const CardModal = React.memo(
                   className={styles.actionButton}
                   onClick={handleToggleSubscriptionClick}
                 >
-                  <Icon name="paper plane outline" className={styles.actionIcon} />
+                  <Icon name='paper plane outline' className={styles.actionIcon} />
                   {isSubscribed ? t('action.unsubscribe') : t('action.subscribe')}
                 </Button>
                 <CardMovePopup
@@ -429,18 +499,18 @@ const CardModal = React.memo(
                     className={styles.actionButton}
                     onClick={handleToggleSubscriptionClick}
                   >
-                    <Icon name="share square outline" className={styles.actionIcon} />
+                    <Icon name='share square outline' className={styles.actionIcon} />
                     {t('action.move')}
                   </Button>
                 </CardMovePopup>
                 <DeletePopup
-                  title="common.deleteCard"
-                  content="common.areYouSureYouWantToDeleteThisCard"
-                  buttonContent="action.deleteCard"
+                  title='common.deleteCard'
+                  content='common.areYouSureYouWantToDeleteThisCard'
+                  buttonContent='action.deleteCard'
                   onConfirm={onDelete}
                 >
                   <Button fluid className={styles.actionButton}>
-                    <Icon name="trash alternate outline" className={styles.actionIcon} />
+                    <Icon name='trash alternate outline' className={styles.actionIcon} />
                     {t('action.delete')}
                   </Button>
                 </DeletePopup>
@@ -467,6 +537,8 @@ CardModal.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   dueDate: PropTypes.instanceOf(Date),
+  priority: PropTypes.number,
+  duration: PropTypes.number,
   isSubscribed: PropTypes.bool.isRequired,
   isActivitiesFetching: PropTypes.bool.isRequired,
   isAllActivitiesFetched: PropTypes.bool.isRequired,
@@ -519,6 +591,8 @@ CardModal.propTypes = {
 CardModal.defaultProps = {
   description: undefined,
   dueDate: undefined,
+  duration: undefined,
+  priority: undefined,
 };
 
 export default CardModal;
