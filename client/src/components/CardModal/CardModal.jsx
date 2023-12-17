@@ -192,7 +192,7 @@ const CardModal = React.memo(
         </Grid.Row>
         <Grid.Row className={styles.modalPadding}>
           <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
-            {(users.length > 0 || labels.length > 0 || dueDate || duration > 0 || priority) && (
+            {(users.length > 0 || labels.length > 0 || dueDate || duration > 0 || (priority >= 1 && priority <= 3)) && (
               <div className={styles.moduleWrapper}>
                 {users.length > 0 && (
                   <div className={styles.attachments}>
@@ -248,7 +248,7 @@ const CardModal = React.memo(
                   </div>
                 )}
 
-                {priority && (
+                {(priority >= 1 && priority <= 3) &&(
                   <div className={styles.attachments}>
                     <div className={styles.text}>
                       {t('common.priority', {
