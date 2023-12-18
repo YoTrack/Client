@@ -106,6 +106,8 @@ export default {
       listActions_title: 'List Actions',
       managers: 'Managers',
       members: 'Members',
+      priority: 'Priority',
+      duration: 'Duration',
       minutes: 'Minutes',
       moveCard_title: 'Move Card',
       name: 'Name',

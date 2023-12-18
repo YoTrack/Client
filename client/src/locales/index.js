@@ -1,9 +1,7 @@
-import de from './de';
 import en from './en';
-import fr from './fr';
 import ru from './ru';
 
-const locales = [de, en, fr, ru];
+const locales = [en, ru];
 
 export default locales;
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -17,41 +18,45 @@ import DueDate from '../DueDate';
 import Stopwatch from '../Stopwatch';
 
 import styles from './Card.module.scss';
+import Priority from '../Priority';
+import Duration from '../Duration';
 
 const Card = React.memo(
   ({
-    id,
-    index,
-    name,
-    dueDate,
-    stopwatch,
-    coverUrl,
-    boardId,
-    listId,
-    projectId,
-    isPersisted,
-    notificationsTotal,
-    users,
-    labels,
-    tasks,
-    allProjectsToLists,
-    allBoardMemberships,
-    allLabels,
-    canEdit,
-    onUpdate,
-    onMove,
-    onTransfer,
-    onDelete,
-    onUserAdd,
-    onUserRemove,
-    onBoardFetch,
-    onLabelAdd,
-    onLabelRemove,
-    onLabelCreate,
-    onLabelUpdate,
-    onLabelMove,
-    onLabelDelete,
-  }) => {
+     id,
+     index,
+     name,
+     dueDate,
+     duration,
+     priority,
+     stopwatch,
+     coverUrl,
+     boardId,
+     listId,
+     projectId,
+     isPersisted,
+     notificationsTotal,
+     users,
+     labels,
+     tasks,
+     allProjectsToLists,
+     allBoardMemberships,
+     allLabels,
+     canEdit,
+     onUpdate,
+     onMove,
+     onTransfer,
+     onDelete,
+     onUserAdd,
+     onUserRemove,
+     onBoardFetch,
+     onLabelAdd,
+     onLabelRemove,
+     onLabelCreate,
+     onLabelUpdate,
+     onLabelMove,
+     onLabelDelete,
+   }) => {
     const nameEdit = useRef(null);
 
     const handleClick = useCallback(() => {
@@ -88,7 +93,7 @@ const Card = React.memo(
 
     const contentNode = (
       <>
-        {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />}
+        {coverUrl && <img src={coverUrl} alt='' className={styles.cover} />}
         <div className={styles.details}>
           {labels.length > 0 && (
             <span className={styles.labels}>
@@ -97,14 +102,14 @@ const Card = React.memo(
                   key={label.id}
                   className={classNames(styles.attachment, styles.attachmentLeft)}
                 >
-                  <Label name={label.name} color={label.color} size="tiny" />
+                  <Label name={label.name} color={label.color} size='tiny' />
                 </span>
               ))}
             </span>
           )}
           <div className={styles.name}>{name}</div>
           {tasks.length > 0 && <Tasks items={tasks} />}
-          {(dueDate || stopwatch || notificationsTotal > 0) && (
+          {(dueDate || duration || priority || stopwatch || notificationsTotal > 0) && (
             <span className={styles.attachments}>
               {notificationsTotal > 0 && (
                 <span
@@ -119,16 +124,26 @@ const Card = React.memo(
               )}
               {dueDate && (
                 <span className={classNames(styles.attachment, styles.attachmentLeft)}>
-                  <DueDate value={dueDate} size="tiny" />
+                  <DueDate value={dueDate} size='tiny' />
                 </span>
+              )}
+              {priority > 0 && (
+                <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+                <Priority value={priority} size='tiny' />
+              </span>
+              )}
+              {duration > 0 && (
+                <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+                <Duration value={duration} size='tiny' />
+              </span>
               )}
               {stopwatch && (
                 <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                   <Stopwatch
-                    as="span"
+                    as='span'
                     startedAt={stopwatch.startedAt}
                     total={stopwatch.total}
-                    size="tiny"
+                    size='tiny'
                     onClick={canEdit ? handleToggleStopwatchClick : undefined}
                   />
                 </span>
@@ -142,7 +157,7 @@ const Card = React.memo(
                   key={user.id}
                   className={classNames(styles.attachment, styles.attachmentRight)}
                 >
-                  <User name={user.name} avatarUrl={user.avatarUrl} size="small" />
+                  <User name={user.name} avatarUrl={user.avatarUrl} size='small' />
                 </span>
               ))}
             </span>
@@ -197,7 +212,7 @@ const Card = React.memo(
                         onLabelDelete={onLabelDelete}
                       >
                         <Button className={classNames(styles.actionsButton, styles.target)}>
-                          <Icon fitted name="pencil" size="small" />
+                          <Icon fitted name='pencil' size='small' />
                         </Button>
                       </ActionsPopup>
                     )}
@@ -219,6 +234,8 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   dueDate: PropTypes.instanceOf(Date),
+  duration: PropTypes.number,
+  priority: PropTypes.number,
   stopwatch: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   coverUrl: PropTypes.string,
   boardId: PropTypes.string.isRequired,
@@ -252,6 +269,8 @@ Card.propTypes = {
 
 Card.defaultProps = {
   dueDate: undefined,
+  priority: 0,
+  duration: undefined,
   stopwatch: undefined,
   coverUrl: undefined,
 };

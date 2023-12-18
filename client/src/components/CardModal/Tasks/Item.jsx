@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';

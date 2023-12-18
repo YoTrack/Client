@@ -47,6 +47,8 @@ export default class extends BaseModel {
     }),
     users: many('User', 'cards'),
     labels: many('Label', 'cards'),
+    duration: attr(),
+    priority: attr(),
   };
 
   static reducer({ type, payload }, Card) {
@@ -128,6 +130,7 @@ export default class extends BaseModel {
         } catch {} // eslint-disable-line no-empty
 
         break;
+
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.cards.forEach((card) => {
           Card.upsert(card);

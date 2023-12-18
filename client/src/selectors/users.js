@@ -19,6 +19,23 @@ export const selectUsersExceptCurrent = createSelector(
       .toRefArray(),
 );
 
+export const makeSelectUserById = () =>
+  createSelector(
+    orm,
+    (_, id) => id,
+    ({ User }, id) => {
+      const userModel = User.withId(id);
+
+      if (!userModel) {
+        return userModel;
+      }
+
+      return userModel.ref;
+    },
+  );
+
+export const selectUserById = makeSelectUserById();
+
 export const selectCurrentUser = createSelector(
   orm,
   (state) => selectCurrentUserId(state),
@@ -124,6 +141,8 @@ export const selectNotificationsForCurrentUser = createSelector(
 
 export default {
   selectCurrentUserId,
+  makeSelectUserById,
+  selectUserById,
   selectUsers,
   selectUsersExceptCurrent,
   selectCurrentUser,

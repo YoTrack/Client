@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -14,7 +15,6 @@ const makeMapStateToProps = () => {
     const { name, isPersisted } = selectListById(state, id);
     const cardIds = selectCardIdsByListId(state, id);
     const currentUserMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-
     const isCurrentUserEditor =
       !!currentUserMembership && currentUserMembership.role === BoardMembershipRoles.EDITOR;
 

@@ -65,5 +65,17 @@ module.exports = {
       collection: 'Action',
       via: 'cardId',
     },
+    duration: {
+      type: 'number',
+      required: false,
+      allowNull: true,
+      columnName: 'duration',
+    },
+    priority: {
+      type: 'number',
+      required: false,
+      allowNull: true,
+      columnName: 'priority',
+    },
   },
 };

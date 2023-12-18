@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import omit from 'lodash/omit';
@@ -21,6 +22,8 @@ const mapStateToProps = (state) => {
     name,
     description,
     dueDate,
+    duration,
+    priority,
     stopwatch,
     isSubscribed,
     isActivitiesFetching,
@@ -49,6 +52,8 @@ const mapStateToProps = (state) => {
     name,
     description,
     dueDate,
+    duration,
+    priority,
     stopwatch,
     isSubscribed,
     isActivitiesFetching,

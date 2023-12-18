@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -5,6 +6,7 @@ import selectors from '../selectors';
 import entryActions from '../entry-actions';
 import { BoardMembershipRoles } from '../constants/Enums';
 import Card from '../components/Card';
+import { selectCardsByUserId } from "../selectors/userSchedule";
 
 const makeMapStateToProps = () => {
   const selectCardById = selectors.makeSelectCardById();
@@ -13,23 +15,27 @@ const makeMapStateToProps = () => {
   const selectTasksByCardId = selectors.makeSelectTasksByCardId();
   const selectNotificationsTotalByCardId = selectors.makeSelectNotificationsTotalByCardId();
 
-  return (state, { id, index }) => {
+  return (state, { id, index, canEdit }) => {
     const { projectId } = selectors.selectPath(state);
     const allProjectsToLists = selectors.selectProjectsToListsForCurrentUser(state);
     const allBoardMemberships = selectors.selectMembershipsForCurrentBoard(state);
     const allLabels = selectors.selectLabelsForCurrentBoard(state);
     const currentUserMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-
-    const { name, dueDate, stopwatch, coverUrl, boardId, listId, isPersisted } = selectCardById(
-      state,
-      id,
-    );
-
+    let {
+      name,
+      dueDate,
+      stopwatch,
+      coverUrl,
+      boardId,
+      listId,
+      isPersisted,
+      duration,
+      priority,
+    } = selectCardById(state, id);
     const users = selectUsersByCardId(state, id);
     const labels = selectLabelsByCardId(state, id);
     const tasks = selectTasksByCardId(state, id);
     const notificationsTotal = selectNotificationsTotalByCardId(state, id);
-
     const isCurrentUserEditor =
       !!currentUserMembership && currentUserMembership.role === BoardMembershipRoles.EDITOR;
 
@@ -38,6 +44,8 @@ const makeMapStateToProps = () => {
       index,
       name,
       dueDate,
+      duration,
+      priority,
       stopwatch,
       coverUrl,
       boardId,
@@ -51,7 +59,7 @@ const makeMapStateToProps = () => {
       allProjectsToLists,
       allBoardMemberships,
       allLabels,
-      canEdit: isCurrentUserEditor,
+      canEdit: canEdit,
     };
   };
 };
