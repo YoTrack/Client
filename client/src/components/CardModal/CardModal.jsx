@@ -243,7 +243,13 @@ const CardModal = React.memo(
                       })}
                     </div>
                     <span className={styles.attachment}>
-                      <Duration value={duration} />
+                      {canEdit ? (
+                        <DurPopup defaultValue={dueDate} onUpdate={handleDurUpdate}>
+                          <Duration value={duration} />
+                        </DurPopup>
+                      ) : (
+                        <Duration value={duration} />
+                      )}
                     </span>
                   </div>
                 )}
@@ -256,7 +262,13 @@ const CardModal = React.memo(
                       })}
                     </div>
                     <span className={styles.attachment}>
-                      <Priority value={priority} size='medium' />
+                      {canEdit ? (
+                        <PriorityPopup defaultValue={dueDate} onUpdate={handlePriorityUpdate}>
+                          <Priority value={priority} size='medium' />
+                        </PriorityPopup>
+                      ) : (
+                        <Priority value={priority} size='medium' />
+                      )}
                     </span>
                   </div>
                 )}
