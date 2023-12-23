@@ -38,19 +38,14 @@ const PriorityStep = React.memo(({ onUpdate, onClose }) => {
         <Form onSubmit={handleSubmit}>
           <div className={styles.fieldBox}>
             <div className={styles.text}>Выберите приоритет</div>
-            <Dropdown
-              ref={priorityDropdownRef}
-              selection
-              options={priorityOptions}
-            />
+            <Dropdown ref={priorityDropdownRef} selection options={priorityOptions} />
           </div>
-          <div></div>
+          <div />
           <Button positive content={t('action.save')} />
         </Form>
       </Popup.Content>
     </>
-  )
-    ;
+  );
 });
 
 PriorityStep.propTypes = {

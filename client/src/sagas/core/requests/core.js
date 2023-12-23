@@ -14,6 +14,16 @@ export function* fetchCore() {
     included: { projectManagers, boards, boardMemberships: boardMemberships1 },
   } = yield call(request, api.getProjects);
 
+  const {
+    items: userCards,
+    included: {
+      cardMemberships: cardMemberships1,
+      cardLabels: cardLabels1,
+      tasks: tasks1,
+      attachments: attachments1,
+    },
+  } = yield call(request, api.getCurrentUserCards);
+
   let board;
   let card;
   let users2;
@@ -75,16 +85,16 @@ export function* fetchCore() {
     boards,
     labels,
     lists,
-    cardMemberships,
-    cardLabels,
-    tasks,
-    attachments,
+    cardMemberships: mergeRecords(cardMemberships1, cardMemberships),
+    cardLabels: mergeRecords(cardLabels1, cardLabels),
+    tasks: mergeRecords(tasks1, tasks),
+    attachments: mergeRecords(attachments1, attachments),
     activities,
     notifications,
     users: mergeRecords(users1, users2, users3),
     projects: mergeRecords(projects1, projects2),
     boardMemberships: mergeRecords(boardMemberships1, boardMemberships2),
-    cards: mergeRecords(cards1, cards2),
+    cards: mergeRecords(userCards, cards1, cards2),
   };
 }
 

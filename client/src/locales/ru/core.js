@@ -66,7 +66,7 @@ export default {
       editPriority: 'Изменение приоритета',
       editDur: 'Изменение длительности',
       dur: 'Длительность',
-      priority : 'Приотритет',
+      priority: 'Приотритет',
       deleteAttachment: 'Удаление вложения',
       deleteBoard: 'Удаление доски',
       deleteCard: 'Удаление карточки',

@@ -17,6 +17,7 @@ function Static({ projectId, cardId, board }) {
     return (
       <div className={styles.wrapper}>
         <ProjectsContainer />
+        <UserScheduleContainer />
       </div>
     );
   }

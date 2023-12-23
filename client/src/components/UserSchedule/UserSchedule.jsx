@@ -68,11 +68,7 @@ const UserSchedule = React.memo(({ currentUserId, datesOfWeek, canEdit }) => {
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div className={styles.wrapper} onMouseDown={handleMouseDown}>
         <div>
-          <div className={styles.lists}>
-            {datesOfWeek.map((date, index) => (
-              <ScheduleListContainer date={date} userId={currentUserId} index={index} />
-            ))}
-          </div>
+          <div className={styles.lists}>ок</div>
         </div>
       </div>
     </>

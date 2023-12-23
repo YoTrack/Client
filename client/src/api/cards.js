@@ -51,6 +51,16 @@ const getCard = (id, headers) =>
     },
   }));
 
+const getCurrentUserCards = (headers) =>
+  socket.get('/cards', undefined, headers).then((body) => ({
+    ...body,
+    items: body.items.map(transformCard),
+    included: {
+      ...body.included,
+      attachments: body.included.attachments.map(transformAttachment),
+    },
+  }));
+
 const updateCard = (id, data, headers) =>
   socket.patch(`/cards/${id}`, transformCardData(data), headers).then((body) => ({
     ...body,
@@ -79,6 +89,7 @@ const makeHandleCardDelete = makeHandleCardCreate;
 export default {
   createCard,
   getCard,
+  getCurrentUserCards,
   updateCard,
   deleteCard,
   makeHandleCardCreate,
