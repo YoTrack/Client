@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './UserSchedule.module.scss';
 import ScheduleListContainer from '../../containers/ScheduleListContainer';
 
-const UserSchedule = React.memo(({ currentUserId, datesOfWeek, canEdit }) => {
+const UserSchedule = React.memo(({ datesOfWeek, userCards }) => {
   const wrapper = useRef(null);
   const prevPosition = useRef(null);
 
@@ -67,12 +67,10 @@ const UserSchedule = React.memo(({ currentUserId, datesOfWeek, canEdit }) => {
     <>
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div className={styles.wrapper} onMouseDown={handleMouseDown}>
-        <div>
-          <div className={styles.lists}>
-            {datesOfWeek.map((date, index) => (
-              <ScheduleListContainer date={date} userId={currentUserId} index={index} />
-            ))}
-          </div>
+        <div className={styles.lists}>
+          {datesOfWeek.map((date, index) => (
+            <ScheduleListContainer key={date} date={date} userCards={userCards} />
+          ))}
         </div>
       </div>
     </>
@@ -80,9 +78,8 @@ const UserSchedule = React.memo(({ currentUserId, datesOfWeek, canEdit }) => {
 });
 
 UserSchedule.propTypes = {
-  currentUserId: PropTypes.string.isRequired,
   datesOfWeek: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  canEdit: PropTypes.bool.isRequired,
+  userCards: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default UserSchedule;

@@ -10,7 +10,7 @@ import boards from './boards';
 import boardMemberships from './board-memberships';
 import labels from './labels';
 import lists from './lists';
-import userSchedule from './userSchedule';
+import userSchedule from './user-schedule';
 import cards from './cards';
 import tasks from './tasks';
 import attachments from './attachments';

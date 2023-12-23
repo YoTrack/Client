@@ -2,21 +2,22 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import selectors from '../selectors';
 import ScheduleList from "../components/ScheduleList";
+import selectors from "../selectors";
+
+const weekDays = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
 
 const makeMapStateToProps = () => {
-  const selectCardsByUserId = selectors.makeSelectCardsByUserId()
-  return (state, { date, currentUserId, index }) => {
-    const cards = selectCardsByUserId(state, currentUserId);
-    console.log(cards)
-    const cardsForDate = cards.filter((card) => card.dueDate!==null && card.dueDate.toLocaleDateString() === date )
-    const name = date
+  return (state, { date, userCards}) => {
+    const cardsForDateIds = userCards
+      .filter((card) => card.dueDate!==null && card.dueDate.toLocaleDateString() === date.toLocaleDateString() )
+      .map((card) => card.id)
+    console.log(cardsForDateIds)
+    const name = date.toLocaleDateString() + ', ' + weekDays[date.getDay()]
+    console.log(name)
     return {
-      index,
       name,
-      cardsForDate,
-      canEdit: false,
+      cardsForDateIds,
     };
   };
 };

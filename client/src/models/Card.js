@@ -62,10 +62,13 @@ export default class extends BaseModel {
             Card.upsert(card);
           });
         }
-
         if (payload.cardMemberships) {
           payload.cardMemberships.forEach(({ cardId, userId }) => {
-            Card.withId(cardId).users.add(userId);
+            const users = Card.withId(cardId).users.toRefArray();
+            // eslint-disable-next-line no-console
+            if (!users.includes(userId)) {
+              Card.withId(cardId).users.add(userId);
+            }
           });
         }
 

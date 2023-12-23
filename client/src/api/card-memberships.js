@@ -1,7 +1,5 @@
 import socket from './socket';
 
-/* Actions */
-
 const createCardMembership = (cardId, data, headers) =>
   socket.post(`/cards/${cardId}/memberships`, data, headers);
 

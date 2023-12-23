@@ -68,6 +68,7 @@ module.exports = {
       ...values,
       position,
       boardId: values.list.boardId,
+      priority: 0,
       listId: values.list.id,
       creatorUserId: values.creatorUser.id,
     }).fetch();

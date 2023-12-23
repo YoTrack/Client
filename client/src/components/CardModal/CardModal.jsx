@@ -30,59 +30,58 @@ import Duration from '../Duration';
 
 const CardModal = React.memo(
   ({
-     name,
-     description,
-     dueDate,
-     duration,
-     priority,
-     isSubscribed,
-     isActivitiesFetching,
-     isAllActivitiesFetched,
-     isActivitiesDetailsVisible,
-     isActivitiesDetailsFetching,
-     listId,
-     boardId,
-     projectId,
-     users,
-     labels,
-     tasks,
-     attachments,
-     activities,
-     allProjectsToLists,
-     allBoardMemberships,
-     allLabels,
-     canEdit,
-     canEditCommentActivities,
-     canEditAllCommentActivities,
-     onUpdate,
-     onMove,
-     onTransfer,
-     onDelete,
-     onUserAdd,
-     onUserRemove,
-     onBoardFetch,
-     onLabelAdd,
-     onLabelRemove,
-     onLabelCreate,
-     onLabelUpdate,
-     onLabelMove,
-     onLabelDelete,
-     onTaskCreate,
-     onTaskUpdate,
-     onTaskMove,
-     onTaskDelete,
-     onAttachmentCreate,
-     onAttachmentUpdate,
-     onAttachmentDelete,
-     onActivitiesFetch,
-     onActivitiesDetailsToggle,
-     onCommentActivityCreate,
-     onCommentActivityUpdate,
-     onCommentActivityDelete,
-     onClose,
-   }) => {
+    name,
+    description,
+    dueDate,
+    duration,
+    priority,
+    isSubscribed,
+    isActivitiesFetching,
+    isAllActivitiesFetched,
+    isActivitiesDetailsVisible,
+    isActivitiesDetailsFetching,
+    listId,
+    boardId,
+    projectId,
+    users,
+    labels,
+    tasks,
+    attachments,
+    activities,
+    allProjectsToLists,
+    allBoardMemberships,
+    allLabels,
+    canEdit,
+    canEditCommentActivities,
+    canEditAllCommentActivities,
+    onUpdate,
+    onMove,
+    onTransfer,
+    onDelete,
+    onUserAdd,
+    onUserRemove,
+    onBoardFetch,
+    onLabelAdd,
+    onLabelRemove,
+    onLabelCreate,
+    onLabelUpdate,
+    onLabelMove,
+    onLabelDelete,
+    onTaskCreate,
+    onTaskUpdate,
+    onTaskMove,
+    onTaskDelete,
+    onAttachmentCreate,
+    onAttachmentUpdate,
+    onAttachmentDelete,
+    onActivitiesFetch,
+    onActivitiesDetailsToggle,
+    onCommentActivityCreate,
+    onCommentActivityUpdate,
+    onCommentActivityDelete,
+    onClose,
+  }) => {
     const [t] = useTranslation();
-
 
     const isGalleryOpened = useRef(false);
 
@@ -179,7 +178,7 @@ const CardModal = React.memo(
         <Grid.Row className={styles.headerPadding}>
           <Grid.Column width={16} className={styles.headerPadding}>
             <div className={styles.headerWrapper}>
-              <Icon name='list alternate outline' className={styles.moduleIcon} />
+              <Icon name="list alternate outline" className={styles.moduleIcon} />
               <div className={styles.headerTitleWrapper}>
                 {canEdit ? (
                   <NameField defaultValue={name} onUpdate={handleNameUpdate} />
@@ -192,7 +191,11 @@ const CardModal = React.memo(
         </Grid.Row>
         <Grid.Row className={styles.modalPadding}>
           <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
-            {(users.length > 0 || labels.length > 0 || dueDate || duration > 0 || (priority >= 1 && priority <= 3)) && (
+            {(users.length > 0 ||
+              labels.length > 0 ||
+              dueDate ||
+              duration > 0 ||
+              (priority >= 1 && priority <= 3)) && (
               <div className={styles.moduleWrapper}>
                 {users.length > 0 && (
                   <div className={styles.attachments}>
@@ -225,10 +228,10 @@ const CardModal = React.memo(
                         onUserDeselect={onUserRemove}
                       >
                         <button
-                          type='button'
+                          type="button"
                           className={classNames(styles.attachment, styles.dueDate)}
                         >
-                          <Icon name='add' size='small' className={styles.addAttachment} />
+                          <Icon name="add" size="small" className={styles.addAttachment} />
                         </button>
                       </BoardMembershipsPopup>
                     )}
@@ -254,7 +257,7 @@ const CardModal = React.memo(
                   </div>
                 )}
 
-                {(priority >= 1 && priority <= 3) &&(
+                {priority >= 1 && priority <= 3 && (
                   <div className={styles.attachments}>
                     <div className={styles.text}>
                       {t('common.priority', {
@@ -264,10 +267,10 @@ const CardModal = React.memo(
                     <span className={styles.attachment}>
                       {canEdit ? (
                         <PriorityPopup defaultValue={dueDate} onUpdate={handlePriorityUpdate}>
-                          <Priority value={priority} size='medium' />
+                          <Priority value={priority} size="medium" />
                         </PriorityPopup>
                       ) : (
-                        <Priority value={priority} size='medium' />
+                        <Priority value={priority} size="medium" />
                       )}
                     </span>
                   </div>
@@ -313,10 +316,10 @@ const CardModal = React.memo(
                         onDelete={onLabelDelete}
                       >
                         <button
-                          type='button'
+                          type="button"
                           className={classNames(styles.attachment, styles.dueDate)}
                         >
-                          <Icon name='add' size='small' className={styles.addAttachment} />
+                          <Icon name="add" size="small" className={styles.addAttachment} />
                         </button>
                       </LabelsPopup>
                     )}
@@ -345,21 +348,21 @@ const CardModal = React.memo(
             {(description || canEdit) && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
-                  <Icon name='align justify' className={styles.moduleIcon} />
+                  <Icon name="align justify" className={styles.moduleIcon} />
                   <div className={styles.moduleHeader}>{t('common.description')}</div>
                   {canEdit ? (
                     <DescriptionEdit defaultValue={description} onUpdate={handleDescriptionUpdate}>
                       {description ? (
                         <button
-                          type='button'
+                          type="button"
                           className={classNames(styles.descriptionText, styles.cursorPointer)}
                         >
-                          <Markdown linkStopPropagation linkTarget='_blank'>
+                          <Markdown linkStopPropagation linkTarget="_blank">
                             {description}
                           </Markdown>
                         </button>
                       ) : (
-                        <button type='button' className={styles.descriptionButton}>
+                        <button type="button" className={styles.descriptionButton}>
                           <span className={styles.descriptionButtonText}>
                             {t('action.addMoreDetailedDescription')}
                           </span>
@@ -368,7 +371,7 @@ const CardModal = React.memo(
                     </DescriptionEdit>
                   ) : (
                     <div className={styles.descriptionText}>
-                      <Markdown linkStopPropagation linkTarget='_blank'>
+                      <Markdown linkStopPropagation linkTarget="_blank">
                         {description}
                       </Markdown>
                     </div>
@@ -379,7 +382,7 @@ const CardModal = React.memo(
             {(tasks.length > 0 || canEdit) && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
-                  <Icon name='check square outline' className={styles.moduleIcon} />
+                  <Icon name="check square outline" className={styles.moduleIcon} />
                   <div className={styles.moduleHeader}>{t('common.tasks')}</div>
                   <Tasks
                     items={tasks}
@@ -395,7 +398,7 @@ const CardModal = React.memo(
             {attachments.length > 0 && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
-                  <Icon name='attach' className={styles.moduleIcon} />
+                  <Icon name="attach" className={styles.moduleIcon} />
                   <div className={styles.moduleHeader}>{t('common.attachments')}</div>
                   <Attachments
                     items={attachments}
@@ -435,7 +438,7 @@ const CardModal = React.memo(
                   onUserDeselect={onUserRemove}
                 >
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='user outline' className={styles.actionIcon} />
+                    <Icon name="user outline" className={styles.actionIcon} />
                     {t('common.members')}
                   </Button>
                 </BoardMembershipsPopup>
@@ -450,13 +453,13 @@ const CardModal = React.memo(
                   onDelete={onLabelDelete}
                 >
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='bookmark outline' className={styles.actionIcon} />
+                    <Icon name="bookmark outline" className={styles.actionIcon} />
                     {t('common.labels')}
                   </Button>
                 </LabelsPopup>
                 <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='calendar check outline' className={styles.actionIcon} />
+                    <Icon name="calendar check outline" className={styles.actionIcon} />
                     {t('common.dueDate', {
                       context: 'title',
                     })}
@@ -464,7 +467,7 @@ const CardModal = React.memo(
                 </DueDateEditPopup>
                 <DurPopup defaultValue={duration} onUpdate={handleDurUpdate}>
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='clock outline' className={styles.actionIcon} />
+                    <Icon name="clock outline" className={styles.actionIcon} />
                     {t('common.dur', {
                       context: 'title',
                     })}
@@ -472,7 +475,7 @@ const CardModal = React.memo(
                 </DurPopup>
                 <PriorityPopup defaultValue={priority} onUpdate={handlePriorityUpdate}>
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='bolt' className={styles.actionIcon} />
+                    <Icon name="bolt" className={styles.actionIcon} />
                     {t('common.priority', {
                       context: 'title',
                     })}
@@ -480,7 +483,7 @@ const CardModal = React.memo(
                 </PriorityPopup>
                 <AttachmentAddPopup onCreate={onAttachmentCreate}>
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='attach' className={styles.actionIcon} />
+                    <Icon name="attach" className={styles.actionIcon} />
                     {t('common.attachment')}
                   </Button>
                 </AttachmentAddPopup>
@@ -492,7 +495,7 @@ const CardModal = React.memo(
                   className={styles.actionButton}
                   onClick={handleToggleSubscriptionClick}
                 >
-                  <Icon name='paper plane outline' className={styles.actionIcon} />
+                  <Icon name="paper plane outline" className={styles.actionIcon} />
                   {isSubscribed ? t('action.unsubscribe') : t('action.subscribe')}
                 </Button>
                 <CardMovePopup
@@ -511,18 +514,18 @@ const CardModal = React.memo(
                     className={styles.actionButton}
                     onClick={handleToggleSubscriptionClick}
                   >
-                    <Icon name='share square outline' className={styles.actionIcon} />
+                    <Icon name="share square outline" className={styles.actionIcon} />
                     {t('action.move')}
                   </Button>
                 </CardMovePopup>
                 <DeletePopup
-                  title='common.deleteCard'
-                  content='common.areYouSureYouWantToDeleteThisCard'
-                  buttonContent='action.deleteCard'
+                  title="common.deleteCard"
+                  content="common.areYouSureYouWantToDeleteThisCard"
+                  buttonContent="action.deleteCard"
                   onConfirm={onDelete}
                 >
                   <Button fluid className={styles.actionButton}>
-                    <Icon name='trash alternate outline' className={styles.actionIcon} />
+                    <Icon name="trash alternate outline" className={styles.actionIcon} />
                     {t('action.delete')}
                   </Button>
                 </DeletePopup>

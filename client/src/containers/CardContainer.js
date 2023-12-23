@@ -6,7 +6,7 @@ import selectors from '../selectors';
 import entryActions from '../entry-actions';
 import { BoardMembershipRoles } from '../constants/Enums';
 import Card from '../components/Card';
-import { selectCardsByUserId } from "../selectors/userSchedule";
+import { selectCardsByUserId } from "../selectors/user-schedule";
 
 const makeMapStateToProps = () => {
   const selectCardById = selectors.makeSelectCardById();

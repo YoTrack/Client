@@ -13,7 +13,7 @@ export const makeSelectCardsByUserId = () =>
         return userModel;
       }
 
-      return userModel.cards.toRefArray();
+      return userModel.cards.orderBy('priority', 'desc').toRefArray();
     },
   );
 
