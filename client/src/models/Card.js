@@ -66,7 +66,6 @@ export default class extends BaseModel {
           payload.cardMemberships.forEach(({ cardId, userId }) => {
             const users = Card.withId(cardId).users.toRefArray();
             // eslint-disable-next-line no-console
-            console.log(users.includes(userId));
             if (!users.includes(userId)) {
               Card.withId(cardId).users.add(userId);
             }
