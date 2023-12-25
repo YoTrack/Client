@@ -12,9 +12,7 @@ const makeMapStateToProps = () => {
     const cardsForDateIds = userCards
       .filter((card) => card.dueDate!==null && card.dueDate.toLocaleDateString() === date.toLocaleDateString() )
       .map((card) => card.id)
-    console.log(cardsForDateIds)
     const name = date.toLocaleDateString() + ', ' + weekDays[date.getDay()]
-    console.log(name)
     return {
       name,
       cardsForDateIds,

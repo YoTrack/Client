@@ -8,8 +8,7 @@ import UserSchedule from '../components/UserSchedule';
 function getCurrentWeekDates() {
   const today = new Date();
   const currentDayOfWeek = today.getDay();
-  const startingDate = new Date(today.getTime() - (currentDayOfWeek - 1) * 24 * 60 * 60 * 1000); // Понедельник текущей недели
-
+  const startingDate = new Date(today.getTime()); // Начиная с текущего дня
   const weekDates = [];
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 7; i++) {
