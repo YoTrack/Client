@@ -6,6 +6,8 @@ const Errors = {
     taskNotFound: 'Task not found',
   },
 };
+const dueDateValidator = (value) => moment(value, moment.ISO_8601, true).isValid();
+const durationValidator = (value) => value == null || (value >= 0 && value < 25);
 
 module.exports = {
   inputs: {
@@ -23,6 +25,14 @@ module.exports = {
     },
     isCompleted: {
       type: 'boolean',
+    },
+    dueDate: {
+      type: "string",
+    },
+    duration: {
+      type: "number",
+      custom: durationValidator,
+      allowNull: true
     },
   },
 
@@ -58,7 +68,7 @@ module.exports = {
       throw Errors.NOT_ENOUGH_RIGHTS;
     }
 
-    const values = _.pick(inputs, ['position', 'name', 'isCompleted']);
+    const values = _.pick(inputs, ['position', 'name', 'isCompleted', 'duration', 'dueDate']);
 
     task = await sails.helpers.tasks.updateOne.with({
       values,

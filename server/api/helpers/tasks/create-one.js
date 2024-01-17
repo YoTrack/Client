@@ -28,7 +28,6 @@ module.exports = {
 
   async fn(inputs) {
     const { values } = inputs;
-
     const tasks = await sails.helpers.cards.getTasks(values.card.id);
 
     const { position, repositions } = sails.helpers.utils.insertToPositionables(

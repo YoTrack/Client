@@ -379,6 +379,7 @@ const CardModal = React.memo(
                 </div>
               </div>
             )}
+            {/* !!!!!!!!! */}
             {(tasks.length > 0 || canEdit) && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>

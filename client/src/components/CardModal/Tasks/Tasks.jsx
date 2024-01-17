@@ -75,10 +75,14 @@ const Tasks = React.memo(({ items, canEdit, onCreate, onUpdate, onMove, onDelete
                   id={item.id}
                   index={index}
                   name={item.name}
+                  dueDate={item.dueDate}
+                  duration={item.duration}
                   isCompleted={item.isCompleted}
                   isPersisted={item.isPersisted}
                   canEdit={canEdit}
                   onUpdate={(data) => handleUpdate(item.id, data)}
+                  onDataUpdate={(data) => handleUpdate(item.id, data)}
+                  onDurationUpdate={(data) => handleUpdate(item.id, data)}
                   onDelete={() => handleDelete(item.id)}
                 />
               ))}

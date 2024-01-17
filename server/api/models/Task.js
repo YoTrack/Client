@@ -18,5 +18,15 @@ module.exports = {
       required: true,
       columnName: 'card_id',
     },
+    dueDate: {
+      type: 'ref',
+      columnName: 'due_date',
+    },
+    duration: {
+      type: 'number',
+      required: false,
+      allowNull: true,
+      columnName: 'duration',
+    },
   },
 };

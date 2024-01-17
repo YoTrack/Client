@@ -9,9 +9,11 @@ module.exports.up = (knex) =>
     table.text('name').notNullable();
     table.boolean('is_completed').notNullable();
 
+    table.timestamp('due_date', true);
+    table.jsonb('timer');
+
     table.timestamp('created_at', true);
     table.timestamp('updated_at', true);
-
     /* Indexes */
 
     table.index('card_id');

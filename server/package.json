@@ -28,6 +28,7 @@
     "dotenv": "^16.0.3",
     "dotenv-cli": "^6.0.0",
     "filenamify": "^4.3.0",
+    "git": "^0.1.5",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.3.0",
     "lodash": "^4.17.21",

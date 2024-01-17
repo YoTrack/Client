@@ -18,6 +18,8 @@ export default class extends BaseModel {
       as: 'card',
       relatedName: 'tasks',
     }),
+    duration: attr(),
+    dueDate: attr(),
   };
 
   static reducer({ type, payload }, Task) {
