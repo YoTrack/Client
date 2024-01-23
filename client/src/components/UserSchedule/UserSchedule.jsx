@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './UserSchedule.module.scss';
 import ScheduleListContainer from '../../containers/ScheduleListContainer';
 
-const UserSchedule = React.memo(({ datesOfWeek, userCards }) => {
+const UserSchedule = React.memo(({ datesOfWeek, userCards, tasks }) => {
   const wrapper = useRef(null);
   const prevPosition = useRef(null);
 
@@ -69,7 +69,7 @@ const UserSchedule = React.memo(({ datesOfWeek, userCards }) => {
       <div className={styles.wrapper} onMouseDown={handleMouseDown}>
         <div className={styles.lists}>
           {datesOfWeek.map((date, index) => (
-            <ScheduleListContainer key={date} date={date} userCards={userCards} />
+            <ScheduleListContainer key={date} date={date} userCards={userCards} tasks={tasks} />
           ))}
         </div>
       </div>
@@ -80,6 +80,7 @@ const UserSchedule = React.memo(({ datesOfWeek, userCards }) => {
 UserSchedule.propTypes = {
   datesOfWeek: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   userCards: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  tasks: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default UserSchedule;
